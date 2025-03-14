@@ -1,0 +1,46 @@
+Logo (dimensi kotak , bisa dijadikan border lingkaran)
+/images berarti ada di public/images
+
+1. /images/logo_rosebrand_square.png
+
+homepage (dimensi persegi Panjang 1920x936 )
+2. /images/homepage.jpg
+
+Resep Rosebrand (dimensi kotak 2048x2048)
+1. /images/resep_rosebrand_1.jpg
+2. /images/resep_rosebrand_2.jpg
+3. /images/resep_rosebrand_3.jpg
+4. /images/resep_rosebrand_4.jpg
+5. /images/resep_rosebrand_5.jpg
+6. /images/resep_rosebrand_6.jpg
+7. /images/resep_rosebrand_7.jpg
+
+Testi (dimensi kotak 2048x2048)
+1. /images/testi_rosebrand_1.jpg
+2. /images/testi_rosebrand_2.jpg
+3. /images/testi_rosebrand_3.jpg
+4. /images/testi_rosebrand_4.jpg
+
+
+data Isi testimonial (jika terlalu Panjang pada page, tolong sesuaikan bahasanya diperpendek tidak masalah, disetiap kalimat juga terlihat nama dan pekerjaan dan umur, taruh itu dibawah image sebelum comment/testimonial mereka)
+
+
+1. /images/testi_rosebrand_1.jpg
+ Secara keseluruhan, saya sangat puas dengan kualitas minyak goreng Rose Brand. Saya akan terus menggunakan minyak goreng ini untuk menggoreng cakwe.
+
+
+Minyak goreng Rose Brand juga tidak mengeluarkan bau menyengat saat digoreng. Hal ini membuat cakwe yang digoreng dengan minyak goreng Rose Brand memiliki aroma yang sedap.
+
+Terima Kasih ROSE BRAND - Mas Zaing, 20th Pedagang Cakwe”
+
+2. /images/testi_rosebrand_2.jpg
+ "Kualitas andalan untuk ibu rumah tangga lalu saya pake untuk usaha
+Semoga ROSE BRAND sukses selalu karena telah membantu kami para Ibu Rumah Tangga untuk membantu mencari nafkah dengan menyediakan produk yang berkualitas
+Terima Kasih ROSE BRAND - Yanti, 41th
+Pedagang Sop Duren”
+
+3. /images/testi_rosebrand_3.jpg
+3. “Dari awal saya dagang, saya sudah pakai Tepung Beras ROSE BRAND. Emang udah jadi andalan, terpercaya dari dulu sampai sekarang.” - Pak Narto, pedagang Kue Rangi.
+
+4. /images/testi_rosebrand_4.jpg
+4.“Paling favorit kalau goreng martabak telur pakai Minyak Goreng ROSE BRAND deh!” - Pak Sukarjo, pedagang martabak.
