@@ -25,6 +25,7 @@ return [
         'GPJ1' => 'sqlsrv_194', 'GPJP' => 'sqlsrv_194', 'GSBG' => 'sqlsrv_194', 'GSBH' => 'sqlsrv_194',
         'GSMG' => 'sqlsrv_194', 'GSMN' => 'sqlsrv_194', 'GSON' => 'sqlsrv_194', 'GSRG' => 'sqlsrv_194',
         'GTEI' => 'sqlsrv_194', 'GTRB' => 'sqlsrv_194', 'GCKR' => 'sqlsrv_194',
+        'VTRD' => 'sqlsrv_194',
 
         // sqlsrv_196_1
         'GBSC' => 'sqlsrv_196_1', 'GDPK' => 'sqlsrv_196_1', 'GDPT' => 'sqlsrv_196_1', 'GPWK' => 'sqlsrv_196_1',

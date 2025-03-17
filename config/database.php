@@ -8,16 +8,17 @@ return [
     
     'sqlsrv' => [
         'driver' => 'sqlsrv',
-        'host' => env('DB_HOST', 'JKT-IT220\MSSQLSERVER01'),
-        'database' => env('DB_DATABASE', 'InternalSupportSB'),
-        'username' => env('DB_USERNAME', 'Renaldo'),
-        'password' => env('DB_PASSWORD', 'katmai'),
-        'port' => env('DB_PORT', '1433'),
+        'host' => env('DB_HOST'),
+        'instance' => env('DB_INSTANCE'),
+        'port' => env('DB_PORT'),
+        'database' => env('DB_DATABASE'),
+        'username' => env('DB_USERNAME'),
+        'password' => env('DB_PASSWORD'),
         'charset' => 'utf8',
         'prefix' => '',
         'options'   => [
-            //PDO::SQLSRV_ATTR_QUERY_TIMEOUT => 30 // Batas waktu query
-            //PDO::ATTR_PERSISTENT => true
+        //PDO::SQLSRV_ATTR_QUERY_TIMEOUT => 30 // Batas waktu query
+        //PDO::ATTR_PERSISTENT => true
         ],
     ],
     
