@@ -66,6 +66,14 @@ Route::get('/database', function () {
     return Inertia::render('job/it_support/database-page');
 })->name('database.page');
 
+Route::get('/administrator', function () {
+    return Inertia::render('job/administrator/administrator-page');
+})->name('administrator.page');
+
+Route::get('/administrator-user-sb', function () {
+    return Inertia::render('job/administrator/administrator-user-sb');
+})->name('administrator-user-sb.page');
+
 
 
 require __DIR__.'/settings.php';
