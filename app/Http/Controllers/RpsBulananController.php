@@ -36,7 +36,7 @@ class RpsBulananController extends Controller
 
             return response()->json([
                 'success' => true,
-                'results' => $results
+                'results' => $results ?? [] // Jika kosong, tetap kembalikan array kosong
             ]);
         } catch (\Exception $e) {
             return response()->json([
