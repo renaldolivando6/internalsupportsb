@@ -27,7 +27,7 @@ class RpsBulananController extends Controller
             
             // Execute the stored procedure
             $results = DB::connection($connectionName)->select(
-                "EXEC [dbo].[xRere_InsertRPS] 
+                "EXEC customerorder.dbo.xrere_insertrps 
                 @companycop = ?, 
                 @custcode_raw = ?, 
                 @islivex = ?",
