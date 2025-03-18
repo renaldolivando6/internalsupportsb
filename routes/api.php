@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukaSJController;
 use App\Http\Controllers\BukaLpController;
+use App\Http\Controllers\RpsBulananController;
 
 Route::prefix('buka-sj')->middleware('api')->group(function () {
     Route::post('/check', [BukaSJController::class, 'check'])->name('api.buka-sj.check');
@@ -13,4 +14,8 @@ Route::prefix('buka-sj')->middleware('api')->group(function () {
 Route::prefix('buka-lp')->middleware('api')->group(function () {
     Route::post('/check', [BukaLpController::class, 'check'])->name('api.buka-lp.check');
     Route::post('/run', [BukaLpController::class, 'run'])->name('api.buka-lp.run');
+});
+
+Route::prefix('rps-bulanan')->middleware('api')->group(function () {
+    Route::post('/check', [RpsBulananController::class, 'check'])->name('api.rps-bulanan.check');
 });

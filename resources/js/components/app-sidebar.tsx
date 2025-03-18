@@ -37,17 +37,17 @@ export function AppSidebar() {
             children: [
                 { title: 'Buka SJ / Suspend', url: '/buka-sj', icon: Unlock },
                 { title: 'Buka LP', url: '/buka-lp', icon: Unlock },
-                { title: 'RPS Bulanan', url: '', icon: FileText },
+                { title: 'RPS Bulanan', url: '/rps-bulanan', icon: FileText },
             ],
         },
         {
             title: 'IT',
             icon: Code,
             children: [
-                { title: 'COP', url: '', icon: AppWindow },
-                { title: 'IM', url: '', icon: AppWindow },
-                { title: 'Database', url: '', icon: Database },
-                { title: 'Authorization', url: '', icon: Fingerprint },
+                { title: 'COP', url: '/cop', icon: AppWindow },
+                { title: 'IM', url: '/im', icon: AppWindow },
+                { title: 'Database', url: '/database', icon: Database },
+                { title: 'Authorization', url: '/authorization', icon: Fingerprint },
             ],
         },
         {

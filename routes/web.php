@@ -50,7 +50,21 @@ Route::get('/buka-lp', function () {
     return Inertia::render('job/ar/buka-lp');
 })->name('buka-lp.page');
 
+Route::get('/rps-bulanan', function () {
+    return Inertia::render('job/ar/rps-bulanan');
+})->name('rps-bulanan.page');
 
+Route::get('/cop', function () {
+    return Inertia::render('job/it_support/cop-page');
+})->name('cop.page');
+
+Route::get('/im', function () {
+    return Inertia::render('job/it_support/im-page');
+})->name('im.page');
+
+Route::get('/database', function () {
+    return Inertia::render('job/it_support/database-page');
+})->name('database.page');
 
 
 
