@@ -52,7 +52,7 @@ export function AppSidebar() {
         },
         {
             title: 'Administrator',
-            url: '',
+            url: '/administrator',
             icon: UserCog,
         },
     ];
