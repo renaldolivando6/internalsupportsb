@@ -24,13 +24,13 @@ return [
         'GMRG' => 'sqlsrv_194', 'GMTP' => 'sqlsrv_194', 'GOXX' => 'sqlsrv_194', 'GOXY' => 'sqlsrv_194',
         'GPJ1' => 'sqlsrv_194', 'GPJP' => 'sqlsrv_194', 'GSBG' => 'sqlsrv_194', 'GSBH' => 'sqlsrv_194',
         'GSMG' => 'sqlsrv_194', 'GSMN' => 'sqlsrv_194', 'GSON' => 'sqlsrv_194', 'GSRG' => 'sqlsrv_194',
-        'GTEI' => 'sqlsrv_194', 'GTRB' => 'sqlsrv_194', 'GCKR' => 'sqlsrv_194',
+        'GTEI' => 'sqlsrv_194', 'GCKR' => 'sqlsrv_194',
         'VTRD' => 'sqlsrv_194',
 
         // sqlsrv_196_1
         'GBSC' => 'sqlsrv_196_1', 'GDPK' => 'sqlsrv_196_1', 'GDPT' => 'sqlsrv_196_1', 'GPWK' => 'sqlsrv_196_1',
         'GSBM' => 'sqlsrv_196_1', 'GSLO' => 'sqlsrv_196_1', 'GTSK' => 'sqlsrv_196_1', 'GUPB' => 'sqlsrv_196_1',
-
+         'GTRB' => 'sqlsrv_196_1',
         // sqlsrv_196_2
         'GBMS' => 'sqlsrv_196_2', 'GDSR' => 'sqlsrv_196_2', 'GSPT' => 'sqlsrv_196_2',
 
