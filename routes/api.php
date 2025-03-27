@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukaSJController;
 use App\Http\Controllers\BukaLpController;
 use App\Http\Controllers\RpsBulananController;
+use App\Http\Controllers\AdministratorUserSbController;
 
 Route::prefix('buka-sj')->middleware('api')->group(function () {
     Route::post('/check', [BukaSJController::class, 'check'])->name('api.buka-sj.check');

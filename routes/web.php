@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\OpenRdController;
 use App\Http\Controllers\RefreshNpwpController;
 use App\Http\Controllers\BukaSJController;
+use App\Http\Controllers\AdministratorUserSbController;
 
 //HomePage
 Route::get('/', function () {
@@ -70,9 +71,18 @@ Route::get('/administrator', function () {
     return Inertia::render('job/administrator/administrator-page');
 })->name('administrator.page');
 
-Route::get('/administrator-user-sb', function () {
-    return Inertia::render('job/administrator/administrator-user-sb');
-})->name('administrator-user-sb.page');
+
+
+Route::prefix('job/administrator')->group(function () {
+    Route::get('/administrator-user-sb', [AdministratorUserSbController::class, 'index'])->name('job.administrator-user-sb.index');
+    Route::get('/administrator-user-sb/create', [AdministratorUserSbController::class, 'create'])->name('job.administrator-user-sb.create');
+    Route::post('/administrator-user-sb', [AdministratorUserSbController::class, 'store'])->name('job.administrator-user-sb.store');
+    Route::get('/administrator-user-sb/{id}/edit', [AdministratorUserSbController::class, 'edit'])->name('job.administrator-user-sb.edit');
+    Route::put('/administrator-user-sb/{id}', [AdministratorUserSbController::class, 'update'])->name('job.administrator-user-sb.update');
+    Route::delete('/administrator-user-sb/{id}', [AdministratorUserSbController::class, 'destroy'])->name('job.administrator-user-sb.destroy');
+});
+
+
 
 
 
