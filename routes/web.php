@@ -73,16 +73,14 @@ Route::get('/administrator', function () {
 
 
 
-Route::prefix('job/administrator')->group(function () {
-    Route::get('/administrator-user-sb', [AdministratorUserSbController::class, 'index'])->name('job.administrator-user-sb.index');
-    Route::get('/administrator-user-sb/create', [AdministratorUserSbController::class, 'create'])->name('job.administrator-user-sb.create');
-    Route::post('/administrator-user-sb', [AdministratorUserSbController::class, 'store'])->name('job.administrator-user-sb.store');
-    Route::get('/administrator-user-sb/{id}/edit', [AdministratorUserSbController::class, 'edit'])->name('job.administrator-user-sb.edit');
-    Route::put('/administrator-user-sb/{id}', [AdministratorUserSbController::class, 'update'])->name('job.administrator-user-sb.update');
-    Route::delete('/administrator-user-sb/{id}', [AdministratorUserSbController::class, 'destroy'])->name('job.administrator-user-sb.destroy');
-});
-
-
+Route::get('/administrator-user-sb', [AdministratorUserSbController::class, 'index'])->name('job.administrator-user-sb.index');
+Route::get('/administrator-user-sb/create', [AdministratorUserSbController::class, 'create'])->name('job.administrator-user-sb.create');
+Route::post('/administrator-user-sb', [AdministratorUserSbController::class, 'store'])->name('job.administrator-user-sb.store');
+Route::get('/administrator-user-sb/{id}/edit', [AdministratorUserSbController::class, 'edit'])->name('job.administrator-user-sb.edit');
+Route::put('/administrator-user-sb/{id}', [AdministratorUserSbController::class, 'update'])->name('job.administrator-user-sb.update');
+Route::delete('/administrator-user-sb/{id}', [AdministratorUserSbController::class, 'destroy'])->name('job.administrator-user-sb.destroy');
+Route::post('/administrator-user-sb/{id}/resign', [AdministratorUserSbController::class, 'resign'])->name('job.administrator-user-sb.resign');
+Route::post('/administrator-user-sb/{id}/update-delete-status', [AdministratorUserSbController::class, 'updateDeleteStatus'])->name('job.administrator-user-sb.update-delete-status');
 
 
 

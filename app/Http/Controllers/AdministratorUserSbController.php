@@ -16,7 +16,6 @@ class AdministratorUserSbController extends Controller
      */
     public function index()
     {
-        
         $administrators = DB::connection('sqlsrv')
             ->table('administrator_user_sb')
             ->select(
@@ -32,17 +31,17 @@ class AdministratorUserSbController extends Controller
                 'application_login',
                 'group_name',
                 'created_at',
-                'updated_at'
+                'updated_at',
+                'is_resigned',
+                'delete_status'
             )
             ->orderBy('nama')
             ->get();
-
 
         return Inertia::render('job/administrator/administrator-user-sb', [
             'administrators' => $administrators
         ]);
     }
-    
 
     /**
      * Show the form for creating a new administrator.
@@ -51,7 +50,7 @@ class AdministratorUserSbController extends Controller
      */
     public function create()
     {
-        return Inertia::render('AdministratorCreate');
+        return Inertia::render('job/administrator/administrator-user-sb-add');
     }
 
     /**
@@ -72,18 +71,20 @@ class AdministratorUserSbController extends Controller
             'sfa' => 'nullable|string|max:50',
             'mobile_sales' => 'nullable|string|max:50',
             'application_login' => 'nullable|string|max:50',
-            'group_id' => 'nullable|integer',
             'group_name' => 'nullable|string|max:50',
         ]);
 
-        $validated['id_entry'] = Auth::user()->username ?? 'system';
+        // Add timestamps and user login information
         $validated['created_at'] = now();
+        $validated['updated_at'] = now();
+        $validated['is_resigned'] = 0; // Default to not resigned
+        $validated['id_entry'] = Auth::user()->username; // Mengambil username pengguna yang login
 
         DB::connection('sqlsrv')
             ->table('administrator_user_sb')
             ->insert($validated);
 
-        return redirect()->route('administrators.index')
+        return redirect()->route('job.administrator-user-sb.index')
             ->with('message', 'Administrator created successfully');
     }
 
@@ -100,7 +101,7 @@ class AdministratorUserSbController extends Controller
             ->where('id', $id)
             ->first();
 
-        return Inertia::render('AdministratorEdit', [
+        return Inertia::render('job/administrator/administrator-user-sb-edit', [
             'administrator' => $administrator
         ]);
     }
@@ -135,7 +136,7 @@ class AdministratorUserSbController extends Controller
             ->where('id', $id)
             ->update($validated);
 
-        return redirect()->route('administrators.index')
+        return redirect()->route('job.administrator-user-sb.edit', $id)
             ->with('message', 'Administrator updated successfully');
     }
 
@@ -152,7 +153,51 @@ class AdministratorUserSbController extends Controller
             ->where('id', $id)
             ->delete();
 
-        return redirect()->route('administrators.index')
+        return redirect()->route('job.administrator-user-sb.index')
             ->with('message', 'Administrator deleted successfully');
+    }
+
+    /**
+     * Mark an administrator as resigned.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function resign($id)
+    {
+        DB::connection('sqlsrv')
+            ->table('administrator_user_sb')
+            ->where('id', $id)
+            ->update([
+                'is_resigned' => 1,
+                'resigned_at' => now()
+            ]);
+
+        return redirect()->route('job.administrator-user-sb.index')
+            ->with('message', 'Administrator marked as resigned');
+    }
+
+    /**
+     * Update the delete status of an administrator.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateDeleteStatus(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'delete_status' => 'required|in:pending,done'
+        ]);
+
+        DB::connection('sqlsrv')
+            ->table('administrator_user_sb')
+            ->where('id', $id)
+            ->update([
+                'delete_status' => $validated['delete_status']
+            ]);
+
+        return redirect()->route('job.administrator-user-sb.index')
+            ->with('message', 'Delete status updated successfully');
     }
 }
