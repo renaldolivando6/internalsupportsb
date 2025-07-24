@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Head, router } from "@inertiajs/react";
+import { Head, router, Link } from "@inertiajs/react";
 import AppLayout from '@/layouts/app-layout';
 
 interface Administrator {
@@ -139,14 +139,14 @@ const AdministratorUserList = (props: Props) => {
   // Page number buttons rendering
   const renderPageButtons = () => {
     const buttons = [];
-    for (let i = 1; i <= Math.min(totalPages, 20); i++) {
+    for (let i = 1; i <= Math.min(totalPages, 10); i++) {
       buttons.push(
         <button
           key={i}
           onClick={() => setCurrentPage(i)}
-          className={`px-3 py-1 mx-1 rounded ${
+          className={`px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
             currentPage === i 
-              ? 'bg-blue-500 text-white' 
+              ? 'bg-gray-900 text-white' 
               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
           }`}
         >
@@ -160,7 +160,7 @@ const AdministratorUserList = (props: Props) => {
   // Resign handler
   const handleResign = (id: number) => {
     if (window.confirm('Are you sure you want to mark this administrator as resigned?')) {
-      router.post(`/administrator-user-sb/${id}/resign`, {}, {
+      router.post(route('job.administrator-user-sb.resign', id), {}, {
         preserveScroll: true,
         preserveState: true,
       });
@@ -175,7 +175,7 @@ const AdministratorUserList = (props: Props) => {
   // Confirm delete status update
   const confirmDeleteStatusUpdate = () => {
     if (selectedAdmin) {
-      router.post(`/administrator-user-sb/${selectedAdmin.id}/update-delete-status`, {
+      router.post(route('job.administrator-user-sb.update-delete-status', selectedAdmin.id), {
         delete_status: selectedAdmin.delete_status
       }, {
         preserveScroll: true,
@@ -190,51 +190,44 @@ const AdministratorUserList = (props: Props) => {
   // Dashboard Stats Component
   const DashboardStats = () => (
     <div className="mb-6">
-      <h2 className="text-xl font-semibold mb-4">Data User SB</h2>
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-medium text-gray-900 mb-2">Data User SB</h2>
+        <p className="text-gray-600 text-sm">System access statistics and user management</p>
+      </div>
       
-      <div className="flex flex-wrap -mx-2">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mb-4">
         {/* Total Active Users */}
-        <div className="w-full px-2 mb-4">
-          <div className="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 className="text-lg font-medium text-black-800">Total Active Users</h3>
-            <p className="text-3xl font-bold text-black-900">{dashboardStats.totalActive}</p>
+        <div className="md:col-span-6">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 shadow-xl text-center">
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Total Active Users</h3>
+            <p className="text-4xl font-light text-gray-900">{dashboardStats.totalActive}</p>
           </div>
         </div>
         
         {/* Access Stats */}
-        <div className="w-1/5 px-2">
-          <div className="bg-green-100 p-4 rounded-lg shadow h-full">
-            <h3 className="text-sm font-medium text-black-800">RD Web</h3>
-            <p className="text-2xl font-bold text-black-900">{dashboardStats.rdWebCount}</p>
-          </div>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-gray-200 shadow-xl text-center">
+          <h3 className="text-sm font-medium text-gray-800 mb-2">RD Web</h3>
+          <p className="text-2xl font-light text-gray-900">{dashboardStats.rdWebCount}</p>
         </div>
         
-        <div className="w-1/5 px-2">
-          <div className="bg-purple-100 p-4 rounded-lg shadow h-full">
-            <h3 className="text-sm font-medium text-black-800">Website Rosebrand</h3>
-            <p className="text-2xl font-bold text-black-900">{dashboardStats.websiteRosebrandCount}</p>
-          </div>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-gray-200 shadow-xl text-center">
+          <h3 className="text-sm font-medium text-gray-800 mb-2">Website Rosebrand</h3>
+          <p className="text-2xl font-light text-gray-900">{dashboardStats.websiteRosebrandCount}</p>
         </div>
         
-        <div className="w-1/5 px-2">
-          <div className="bg-yellow-100 p-4 rounded-lg shadow h-full">
-            <h3 className="text-sm font-medium text-black-800">SFA</h3>
-            <p className="text-2xl font-bold text-black-900">{dashboardStats.sfaCount}</p>
-          </div>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-gray-200 shadow-xl text-center">
+          <h3 className="text-sm font-medium text-gray-800 mb-2">SFA</h3>
+          <p className="text-2xl font-light text-gray-900">{dashboardStats.sfaCount}</p>
         </div>
         
-        <div className="w-1/5 px-2">
-          <div className="bg-red-100 p-4 rounded-lg shadow h-full">
-            <h3 className="text-sm font-medium text-black-800">Mobile Sales</h3>
-            <p className="text-2xl font-bold text-black-900">{dashboardStats.mobileSalesCount}</p>
-          </div>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-gray-200 shadow-xl text-center">
+          <h3 className="text-sm font-medium text-gray-800 mb-2">Mobile Sales</h3>
+          <p className="text-2xl font-light text-gray-900">{dashboardStats.mobileSalesCount}</p>
         </div>
         
-        <div className="w-1/5 px-2">
-          <div className="bg-indigo-100 p-4 rounded-lg shadow h-full">
-            <h3 className="text-sm font-medium text-black-800">Application Login</h3>
-            <p className="text-2xl font-bold text-black-900">{dashboardStats.applicationLoginCount}</p>
-          </div>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-gray-200 shadow-xl text-center">
+          <h3 className="text-sm font-medium text-gray-800 mb-2">Application Login</h3>
+          <p className="text-2xl font-light text-gray-900">{dashboardStats.applicationLoginCount}</p>
         </div>
       </div>
     </div>
@@ -243,59 +236,61 @@ const AdministratorUserList = (props: Props) => {
   // Render active users
   const renderActiveUsers = () => (
     <>
-      <div className="bg-white overflow-x-auto shadow-sm sm:rounded-lg">
-        <table className="w-full table-auto">
-          <thead>
-            <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
-              <th className="py-3 px-6 text-left">Nama</th>
-              <th className="py-3 px-6 text-left">Company</th>
-              <th className="py-3 px-6 text-left">Lokasi</th>
-              <th className="py-3 px-6 text-left">Posisi</th>
-              <th className="py-3 px-6 text-left">RD Web</th>
-              <th className="py-3 px-6 text-left">Website Rosebrand</th>
-              <th className="py-3 px-6 text-left">SFA</th>
-              <th className="py-3 px-6 text-left">Mobile Sales</th>
-              <th className="py-3 px-6 text-left">Application Login</th>
-              <th className="py-3 px-6 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-gray-600 text-sm">
-            {paginatedAdministrators.map((admin) => (
-              <tr key={admin.id} className="border-b border-gray-200 hover:bg-gray-50">
-                <td className="py-3 px-6 text-left">{admin.nama}</td>
-                <td className="py-3 px-6 text-left">{admin.company}</td>
-                <td className="py-3 px-6 text-left">{admin.lokasi || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.posisi || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.rdweb || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.website_rosebrand || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.sfa || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.mobile_sales || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.application_login || '-'}</td>
-                <td className="py-3 px-6 text-left">
-                  <div className="flex items-center space-x-2">
-                    <a 
-                      href={`/administrator-user-sb/${admin.id}/edit`} 
-                      className="text-blue-500 hover:text-blue-700 mr-2"
-                    >
-                      Edit
-                    </a>
-                    <button 
-                      onClick={() => handleResign(admin.id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      Resign
-                    </button>
-                  </div>
-                </td>
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200 shadow-xl overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Nama</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Company</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Lokasi</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Posisi</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">RD Web</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Website RB</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">SFA</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Mobile Sales</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">App Login</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {paginatedAdministrators.map((admin) => (
+                <tr key={admin.id} className="hover:bg-gray-50 transition-colors duration-150">
+                  <td className="px-4 py-3 text-xs text-gray-900">{admin.nama}</td>
+                  <td className="px-4 py-3 text-xs text-gray-900">{admin.company}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.lokasi || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.posisi || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.rdweb || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.website_rosebrand || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.sfa || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.mobile_sales || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.application_login || '-'}</td>
+                  <td className="px-4 py-3 text-xs">
+                    <div className="flex items-center space-x-2">
+                      <Link 
+                        href={route('job.administrator-user-sb.edit', admin.id)}
+                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
+                      >
+                        Edit
+                      </Link>
+                      <button 
+                        onClick={() => handleResign(admin.id)}
+                        className="text-gray-500 hover:text-gray-700 font-medium transition-colors duration-200"
+                      >
+                        Resign
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="mt-4 flex justify-end items-center space-x-2">
+        <div className="mt-4 flex justify-center items-center space-x-1">
           {renderPageButtons()}
         </div>
       )}
@@ -305,101 +300,115 @@ const AdministratorUserList = (props: Props) => {
   // Render resigned users with delete status and action
   const renderResignedUsers = () => (
     <>
-      <div className="bg-white overflow-x-auto shadow-sm sm:rounded-lg">
-        <table className="w-full table-auto">
-          <thead>
-            <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
-              <th className="py-3 px-6 text-left">Nama</th>
-              <th className="py-3 px-6 text-left">Company</th>
-              <th className="py-3 px-6 text-left">Lokasi</th>
-              <th className="py-3 px-6 text-left">Posisi</th>
-              <th className="py-3 px-6 text-left">RD Web</th>
-              <th className="py-3 px-6 text-left">Website Rosebrand</th>
-              <th className="py-3 px-6 text-left">SFA</th>
-              <th className="py-3 px-6 text-left">Mobile Sales</th>
-              <th className="py-3 px-6 text-left">Application Login</th>
-              <th className="py-3 px-6 text-left">Delete Status</th>
-              <th className="py-3 px-6 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-gray-600 text-sm">
-            {paginatedAdministrators.map((admin) => (
-              <tr key={admin.id} className="border-b border-gray-200 hover:bg-gray-50">
-                <td className="py-3 px-6 text-left">{admin.nama}</td>
-                <td className="py-3 px-6 text-left">{admin.company}</td>
-                <td className="py-3 px-6 text-left">{admin.lokasi || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.posisi || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.rdweb || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.website_rosebrand || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.sfa || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.mobile_sales || '-'}</td>
-                <td className="py-3 px-6 text-left">{admin.application_login || '-'}</td>
-                <td className="py-3 px-6 text-left">
-                  {admin.delete_status || 'Not Set'}
-                </td>
-                <td className="py-3 px-6 text-left">
-                  <button 
-                    onClick={() => handleUpdateDeleteStatus(admin)}
-                    className="text-blue-500 hover:text-blue-700"
-                  >
-                    Update Status
-                  </button>
-                </td>
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200 shadow-xl overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Nama</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Company</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Lokasi</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Posisi</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">RD Web</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Website RB</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">SFA</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Mobile Sales</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">App Login</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Delete Status</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-700">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {paginatedAdministrators.map((admin) => (
+                <tr key={admin.id} className="hover:bg-gray-50 transition-colors duration-150">
+                  <td className="px-4 py-3 text-xs text-gray-900">{admin.nama}</td>
+                  <td className="px-4 py-3 text-xs text-gray-900">{admin.company}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.lokasi || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.posisi || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.rdweb || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.website_rosebrand || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.sfa || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.mobile_sales || '-'}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700">{admin.application_login || '-'}</td>
+                  <td className="px-4 py-3 text-xs">
+                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                      admin.delete_status === 'done' 
+                        ? 'bg-gray-100 text-gray-800' 
+                        : admin.delete_status === 'pending'
+                        ? 'bg-gray-200 text-gray-600'
+                        : 'bg-gray-50 text-gray-500'
+                    }`}>
+                      {admin.delete_status || 'Not Set'}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-xs">
+                    <button 
+                      onClick={() => handleUpdateDeleteStatus(admin)}
+                      className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
+                    >
+                      Update
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Delete Status Update Modal */}
       {selectedAdmin && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
-          onClick={() => setSelectedAdmin(null)} // Close modal when clicking outside
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={() => setSelectedAdmin(null)}
         >
           <div 
-            className="relative w-auto max-w-lg mx-auto my-6"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+            className="bg-white rounded-2xl shadow-xl max-w-md w-full mx-4"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
-              <div className="flex items-start justify-between p-5 border-b border-solid rounded-t border-blueGray-200">
-                <h2 className="text-xl font-semibold">Update Delete Status</h2>
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-medium text-gray-900">Update Delete Status</h2>
                 <button
-                  className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none opacity-5 focus:outline-none"
+                  className="text-gray-400 hover:text-gray-600"
                   onClick={() => setSelectedAdmin(null)}
                 >
-                  ×
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                 </button>
               </div>
-              <div className="relative flex-auto p-6">
-                <div className="mb-4">
-                  <label className="block mb-2">Delete Status for {selectedAdmin.nama}</label>
-                  <select
-                    value={selectedAdmin.delete_status || ''}
-                    onChange={(e) => setSelectedAdmin({
-                      ...selectedAdmin, 
-                      delete_status: e.target.value as 'pending' | 'done'
-                    })}
-                    className="w-full px-3 py-2 border rounded"
-                  >
-                    <option value="">Select Status</option>
-                    <option value="pending">pending</option>
-                    <option value="done">done</option>
-                  </select>
-                </div>
+              
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
+                  Delete Status for {selectedAdmin.nama}
+                </label>
+                <select
+                  value={selectedAdmin.delete_status || ''}
+                  onChange={(e) => setSelectedAdmin({
+                    ...selectedAdmin, 
+                    delete_status: e.target.value as 'pending' | 'done'
+                  })}
+                  className="w-full px-3 py-2 bg-gray-50 border border-gray-300 text-sm focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-all duration-200"
+                >
+                  <option value="">Select Status</option>
+                  <option value="pending">Pending</option>
+                  <option value="done">Done</option>
+                </select>
               </div>
-              <div className="flex items-center justify-end p-6 border-t border-solid rounded-b border-blueGray-200">
+              
+              <div className="flex justify-end space-x-3">
                 <button 
                   onClick={() => setSelectedAdmin(null)}
-                  className="px-4 py-2 mr-2 text-sm text-gray-600 bg-gray-200 rounded hover:bg-gray-300"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 transition-colors duration-200"
                 >
                   Cancel
                 </button>
                 <button 
                   onClick={confirmDeleteStatusUpdate}
-                  className="px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
+                  className="px-4 py-2 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 transition-colors duration-200"
                 >
-                  Update
+                  Update Status
                 </button>
               </div>
             </div>
@@ -409,7 +418,7 @@ const AdministratorUserList = (props: Props) => {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="mt-4 flex justify-end items-center space-x-2">
+        <div className="mt-4 flex justify-center items-center space-x-1">
           {renderPageButtons()}
         </div>
       )}
@@ -420,72 +429,106 @@ const AdministratorUserList = (props: Props) => {
     <AppLayout>
       <Head title="Administrator User Management" />
       
-      <div className="py-12">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
+        {/* Subtle background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-gray-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+          <div className="absolute top-40 right-20 w-96 h-96 bg-gray-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
+        </div>
+
+        {/* Main Content */}
+        <div className="relative z-10 container mx-auto px-4 py-6">
+          
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl mb-4 shadow-xl">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+              </svg>
+            </div>
+            <h1 className="text-3xl font-light text-gray-900 mb-3 tracking-tight">
+              Administrator User Management
+            </h1>
+            <p className="text-gray-600 text-sm">Manage system users and access permissions</p>
+          </div>
+
           {/* Dashboard Stats */}
           <DashboardStats />
           
           {/* Tabs */}
-          <div className="mb-4">
-            <div className="flex border-b">
-              <button
-                className={`py-2 px-4 ${tab === 'active' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-500'}`}
-                onClick={() => setTab('active')}
-              >
-                Active Users
-              </button>
-              <button
-                className={`py-2 px-4 ${tab === 'resigned' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-500'}`}
-                onClick={() => setTab('resigned')}
-              >
-                Resigned Users
-              </button>
+          <div className="mb-6">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-1 border border-gray-200 shadow-lg max-w-md mx-auto">
+              <div className="flex">
+                <button
+                  className={`flex-1 py-3 px-6 text-sm font-medium transition-all duration-300 ${
+                    tab === 'active'
+                      ? 'bg-gray-900 text-white shadow-lg transform scale-[1.02]'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  }`}
+                  onClick={() => setTab('active')}
+                >
+                  Active Users ({dashboardStats.totalActive})
+                </button>
+                <button
+                  className={`flex-1 py-3 px-6 text-sm font-medium transition-all duration-300 ${
+                    tab === 'resigned'
+                      ? 'bg-gray-900 text-white shadow-lg transform scale-[1.02]'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  }`}
+                  onClick={() => setTab('resigned')}
+                >
+                  Resigned Users
+                </button>
+              </div>
             </div>
           </div>
 
           {/* Filters and Search */}
-          <div className="mb-4 flex flex-wrap items-center gap-4">
-            <div>
-              
-              <select
-                id="companyFilter"
-                value={selectedCompany}
-                onChange={(e) => {
-                  setSelectedCompany(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="px-3 py-2 border rounded-md"
-              >
-                {companies.map(company => (
-                  <option key={company} value={company}>
-                    {company}
-                  </option>
-                ))}
-              </select>
-            </div>
-            
-            <div className="flex-grow">
-              
-              <input 
-                id="searchInput"
-                type="text" 
-                placeholder="Search..." 
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="w-full max-w-md px-3 py-2 border rounded-md"
-              />
-            </div>
-            {/* Add New Administrator Button */}
-              <div className="flex justify-end mb-4">
-                <a
-                 href="/administrator-user-sb/create"
-                 className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center"
-                 >
-              <span>Add New User</span>
-              </a>
+          <div className="mb-6">
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 shadow-xl">
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex-shrink-0">
+                  <select
+                    value={selectedCompany}
+                    onChange={(e) => {
+                      setSelectedCompany(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="px-3 py-2 bg-gray-50 border border-gray-300 text-sm focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-all duration-200"
+                  >
+                    {companies.map(company => (
+                      <option key={company} value={company}>
+                        {company}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div className="flex-grow max-w-md">
+                  <input 
+                    type="text" 
+                    placeholder="Search users..." 
+                    value={searchTerm}
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full px-3 py-2 bg-gray-50 border border-gray-300 text-sm focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-all duration-200"
+                  />
+                </div>
+                
+                <div className="flex-shrink-0">
+                  <Link
+                    href={route('job.administrator-user-sb.create')}
+                    className="inline-flex items-center px-4 py-2 bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-all duration-200 transform hover:scale-105"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    Add New User
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -493,6 +536,14 @@ const AdministratorUserList = (props: Props) => {
           {tab === 'active' ? renderActiveUsers() : renderResignedUsers()}
         </div>
       </div>
+
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .animation-delay-2000 {
+            animation-delay: 2s;
+          }
+        `
+      }} />
     </AppLayout>
   );
 };

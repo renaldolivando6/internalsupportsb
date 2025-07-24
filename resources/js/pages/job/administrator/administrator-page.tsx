@@ -26,7 +26,7 @@ const CopPage: React.FC = () => {
   const menuItems: MenuItem[] = [
     
     { id: 1, title: "User Internal Support", route: "update-f8", icon: "flag" },
-    { id: 2, title: "Database User SB", route: "administrator-user-sb", icon: "flag" },
+    { id: 2, title: "Database User SB", route: "internalsupportsb/public/administrator-user-sb", icon: "flag" },
   ];
   
   // Helper function to render appropriate icon with proper typing

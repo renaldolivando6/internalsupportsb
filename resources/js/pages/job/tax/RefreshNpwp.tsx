@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import AppLayout from "@/layouts/app-layout";
 
 export default function RefreshNpwp() {
@@ -35,12 +35,26 @@ export default function RefreshNpwp() {
         localStorage.setItem("refresh_npwp_last_clicked", Date.now().toString());
 
         try {
-            const response = await axios.post("/job/tax/refresh-npwp");
-            setStatus(response.data.status);
-            setMessage(response.data.message);
+            // Fixed route using Inertia router
+            router.post(route('job.tax.refresh_npwp'), {}, {
+                onSuccess: (response: any) => {
+                    setTimeout(() => {
+                        setStatus(response.props?.status || "success");
+                        setMessage(response.props?.message || "NPWP data refreshed successfully");
+                    }, 1500);
+                },
+                onError: (errors: any) => {
+                    setTimeout(() => {
+                        setStatus("error");
+                        setMessage("Something went wrong. Please try again.");
+                    }, 1500);
+                }
+            });
         } catch (error) {
-            setStatus("error");
-            setMessage("Something went wrong. Please try again.");
+            setTimeout(() => {
+                setStatus("error");
+                setMessage("Something went wrong. Please try again.");
+            }, 1500);
         }
 
         setTimeout(() => {

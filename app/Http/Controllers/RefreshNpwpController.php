@@ -18,6 +18,11 @@ class RefreshNpwpController extends Controller
     public function refresh(Request $request)
     {
         $result = RefreshNpwpModel::executeRefreshNpwp();
-        return response()->json($result);
+        
+        // Return Inertia response instead of JSON
+        return Inertia::render('job/tax/RefreshNpwp', [
+            'status' => $result['status'] ?? 'success',
+            'message' => $result['message'] ?? 'Refresh successfully started, Please wait 2 minutes for next refresh'
+        ]);
     }
 }

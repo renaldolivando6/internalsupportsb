@@ -20,7 +20,7 @@ export function AppSidebar() {
         },
         {
             title: 'Dashboard',
-            url: '/internalsupportsb/public/dashboard',
+            url: '/internalsupportsb/public/internalsupportsb/public/dashboard',
             icon: LayoutGrid,
         },
         {
@@ -113,7 +113,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href="/internalsupportsb/public/dashboard" prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>

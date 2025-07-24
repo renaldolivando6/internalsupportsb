@@ -7,7 +7,7 @@ const CompanyProfile: React.FC = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <Head title="Company Profile">
-      <link rel="icon" type="image/png" href="/images/logo_internalsb.png" />
+      <link rel="icon" type="image/png" href="/internalsupportsb/public/images/logo_internalsb.png" />
       </Head>
       <HomePageHeader />
       <div className="max-w-7xl mx-auto p-6 bg-white shadow-lg rounded-2xl mt-24">

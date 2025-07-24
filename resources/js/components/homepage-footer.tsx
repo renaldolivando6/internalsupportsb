@@ -25,7 +25,7 @@ const HomePageFooter: React.FC = () => {
       </Link>
     </li>
     <li>
-      <Link href="/dashboard" className="underline cursor-pointer">
+      <Link href="/internalsupportsb/public/dashboard" className="underline cursor-pointer">
         Internal
       </Link>
     </li>

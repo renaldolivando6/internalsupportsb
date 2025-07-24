@@ -1,5 +1,5 @@
 import React from 'react';
-import { Head, useForm, Link } from '@inertiajs/react';
+import { Head, useForm, Link, router } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 
 const AdministratorUserSbAdd: React.FC = () => {
@@ -17,11 +17,11 @@ const AdministratorUserSbAdd: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    post('/administrator-user-sb', {
+    post(route('job.administrator-user-sb.store'), {
       preserveScroll: true,
       onSuccess: () => {
-        // Redirect to the list page after successful creation
-        window.location.href = '/administrator-user-sb';
+        // Redirect to the list page after successful creation using Inertia router
+        router.visit(route('job.administrator-user-sb.index'));
       },
     });
   };
