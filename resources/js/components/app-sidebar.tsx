@@ -20,7 +20,7 @@ export function AppSidebar() {
         },
         {
             title: 'Dashboard',
-            url: '/internalsupportsb/public/internalsupportsb/public/dashboard',
+            url: '/internalsupportsb/public/dashboard',
             icon: LayoutGrid,
         },
         {
