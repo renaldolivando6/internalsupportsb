@@ -5,29 +5,29 @@ import HomePageFooter from "@/components/homepage-footer";
 import { Head } from '@inertiajs/react';
 
 const itSupportTeam = [
-  { name: "Darwin", image: "/images/itdivision/darwin.jpg", ext: "1111" },
-  { name: "Tj", image: "/images/itdivision/tj.jpg", ext: "1111" },
-  { name: "Gersang", image: "/images/itdivision/gersang.jpg", ext: "1111" },
-  { name: "Nathan", image: "/images/itdivision/nathan.jpg", ext: "1111" },
-  { name: "Rere", image: "/images/itdivision/rere.jpg", ext: "1111" },
-  { name: "Marco", image: "/images/itdivision/marco.jpg", ext: "1111" },
-  { name: "JTK", image: "/images/itdivision/jtk.jpg", ext: "1111" },
-  { name: "Edison", image: "/images/itdivision/edison.jpg", ext: "1111" },
-  { name: "Zulvri", image: "/images/itdivision/zulvri.jpg", ext: "1111" },
+  { name: "Darwin", image: "/internalsupportsb/public/images/itdivision/darwin.jpg", ext: "1111" },
+  { name: "Tj", image: "/internalsupportsb/public/images/itdivision/tj.jpg", ext: "1111" },
+  { name: "Gersang", image: "/internalsupportsb/public/images/itdivision/gersang.jpg", ext: "1111" },
+  { name: "Nathan", image: "/internalsupportsb/public/images/itdivision/nathan.jpg", ext: "1111" },
+  { name: "Rere", image: "/internalsupportsb/public/images/itdivision/rere.jpg", ext: "1111" },
+  { name: "Marco", image: "/internalsupportsb/public/images/itdivision/marco.jpg", ext: "1111" },
+  { name: "JTK", image: "/internalsupportsb/public/images/itdivision/jtk.jpg", ext: "1111" },
+  { name: "Edison", image: "/internalsupportsb/public/images/itdivision/edison.jpg", ext: "1111" },
+  { name: "Zulvri", image: "/internalsupportsb/public/images/itdivision/zulvri.jpg", ext: "1111" },
 ];
 
 export default function ITDivisionProfile() {
   return (
     <div className="bg-gray-100 min-h-screen">
       <Head title="Division Profile">
-      <link rel="icon" type="image/png" href="/images/logo_internalsb.png" />
+      <link rel="icon" type="image/png" href="/internalsupportsb/public/images/logo_internalsb.png" />
       </Head>
       <HomePageHeader />
       
       {/* Banner */}
       <div className="w-full max-w-7xl mx-auto mt-4">
         <img
-          src="/images/itdivision/it_division.jpg"
+          src="/internalsupportsb/public/images/itdivision/it_division.jpg"
           alt="IT Division Banner"
           className="w-full h-auto object-cover"
         />
@@ -62,7 +62,7 @@ export default function ITDivisionProfile() {
         <div className="flex flex-col items-center mt-6">
           <div className="w-60 h-60 rounded-full overflow-hidden border-4 border-gray-300">
             <img
-              src="/images/itdivision/manager.jpg"
+              src="/internalsupportsb/public/images/itdivision/manager.jpg"
               alt="Gunawan Tjen"
               className="w-full h-full object-cover"
             />

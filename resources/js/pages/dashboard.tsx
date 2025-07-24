@@ -52,7 +52,7 @@ export default function Dashboard() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard">
-            <link rel="icon" type="image/png" href="/images/logo_internalsb.png" />
+            <link rel="icon" type="image/png" href="/internalsupportsb/public/images/logo_internalsb.png" />
             </Head>
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Top row - Key metrics */}

@@ -15,44 +15,80 @@ export function AppSidebar() {
     const mainNavItems: NavItem[] = [
         {
             title: 'Home',
-            url: '/',
-            icon: Home, // Menggunakan ikon globe untuk Home
+            url: '/internalsupportsb/public/',
+            icon: Home,
         },
         {
             title: 'Dashboard',
-            url: '/dashboard',
+            url: '/internalsupportsb/public/dashboard',
             icon: LayoutGrid,
         },
         {
             title: 'Tax',
             icon: Landmark,
             children: [
-                { title: 'Open RD', url: '/job/tax/openrd', icon: Unlock },
-                { title: 'Refresh NPWP', url: '/job/tax/refresh-npwp', icon: RefreshCcw },
+                { 
+                    title: 'Open RD', 
+                    url: '/internalsupportsb/public/job/tax/openrd', 
+                    icon: Unlock 
+                },
+                { 
+                    title: 'Refresh NPWP', 
+                    url: '/internalsupportsb/public/job/tax/refresh-npwp', 
+                    icon: RefreshCcw 
+                },
             ],
         },
         {
             title: 'AR',
             icon: CreditCard,
             children: [
-                { title: 'Buka SJ / Suspend', url: '/buka-sj', icon: Unlock },
-                { title: 'Buka LP', url: '/buka-lp', icon: Unlock },
-                { title: 'RPS Bulanan', url: '/rps-bulanan', icon: FileText },
+                { 
+                    title: 'Buka SJ / Suspend', 
+                    url: '/internalsupportsb/public/buka-sj', 
+                    icon: Unlock 
+                },
+                { 
+                    title: 'Buka LP', 
+                    url: '/internalsupportsb/public/buka-lp', 
+                    icon: Unlock 
+                },
+                { 
+                    title: 'RPS Bulanan', 
+                    url: '/internalsupportsb/public/rps-bulanan', 
+                    icon: FileText 
+                },
             ],
         },
         {
             title: 'IT',
             icon: Code,
             children: [
-                { title: 'COP', url: '/cop', icon: AppWindow },
-                { title: 'IM', url: '/im', icon: AppWindow },
-                { title: 'Database', url: '/database', icon: Database },
-                { title: 'Authorization', url: '/authorization', icon: Fingerprint },
+                { 
+                    title: 'COP', 
+                    url: '/internalsupportsb/public/cop', 
+                    icon: AppWindow 
+                },
+                { 
+                    title: 'IM', 
+                    url: '/internalsupportsb/public/im', 
+                    icon: AppWindow 
+                },
+                { 
+                    title: 'Database', 
+                    url: '/internalsupportsb/public/database', 
+                    icon: Database 
+                },
+                { 
+                    title: 'Authorization', 
+                    url: '/internalsupportsb/public/authorization', 
+                    icon: Fingerprint 
+                },
             ],
         },
         {
             title: 'Administrator',
-            url: '/administrator',
+            url: '/internalsupportsb/public/administrator',
             icon: UserCog,
         },
     ];

@@ -1,7 +1,7 @@
 import { SVGAttributes } from 'react';
 
 export default function AppLogoIcon() {
-    return <img src="/images/logo_internalsb.png" alt="Logo InternalSB" />;
+    return <img src="/internalsupportsb/public/images/logo_internalsb.png" alt="Logo InternalSB" />;
 }
 
 

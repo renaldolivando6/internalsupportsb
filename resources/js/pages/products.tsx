@@ -86,7 +86,7 @@ export default function ProductPage() {
   return (
     <div className="bg-gray-100 min-h-screen pt-20">
       <Head title="Products">
-      <link rel="icon" type="image/png" href="/images/logo_internalsb.png" />
+      <link rel="icon" type="image/png" href="/internalsupportsb/public/images/logo_internalsb.png" />
       </Head>
       <HomePageHeader />
 
@@ -95,7 +95,7 @@ export default function ProductPage() {
         {/* Gambar */}
         <div className="w-1/3">
           <img
-            src="/images/produk_rosebrand.jpg"
+            src="/internalsupportsb/public/images/produk_rosebrand.jpg"
             alt="Produk Rose Brand"
             className="w-full h-auto object-cover rounded-lg shadow-lg"
           />
