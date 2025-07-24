@@ -38,7 +38,7 @@ const HomePageHeader: React.FC = () => {
             Products
           </Link>
 
-          <Link href="/internalsupportsb/public/internalsupportsb/public/dashboard">
+          <Link href="/internalsupportsb/public/dashboard">
             <span className="cursor-pointer bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
               Internal
             </span>
