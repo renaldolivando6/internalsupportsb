@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
+import React from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -12,283 +11,254 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Dashboard() {
-    // Mock data for demonstration
-    const ticketData = {
-        total: 127,
-        open: 42,
-        pending: 23,
-        resolved: 62,
-        byPriority: {
-            high: 15,
-            medium: 27,
-            low: 24
-        }
-    };
-
-    const timeMetrics = {
-        firstResponse: '28m',
-        avgResponse: '1h 12m',
-        avgResolution: '4h 35m',
-        ticketLifecycle: '2.3 days'
-    };
-
-    const agentPerformance = [
-        { name: 'Renaldo', resolved: 28, responseTime: '24m', satisfaction: 97 },
-        { name: 'Steven', resolved: 24, responseTime: '32m', satisfaction: 92 },
-        { name: 'Yonathan', resolved: 31, responseTime: '18m', satisfaction: 98 },
-        { name: 'Gerald', resolved: 22, responseTime: '40m', satisfaction: 93 }
-    ];
-
-    const channelDistribution = {
-        email: 45,
-        chat: 32,
-        phone: 28,
-        social: 22
-    };
-
-    // State for active tab in agent leaderboard
-    const [activeTab, setActiveTab] = useState('resolved');
+    const currentTime = new Date().toLocaleTimeString('en-US', { 
+        hour12: false, 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    });
+    
+    const currentDate = new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard">
-            <link rel="icon" type="image/png" href="/internalsupportsb/public/images/logo_internalsb.png" />
+                <link rel="icon" type="image/png" href="/internalsupportsb/public/images/logo_internalsb.png" />
             </Head>
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                {/* Top row - Key metrics */}
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                    {/* Ticket Overview Card */}
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 shadow-sm">
-                        <div className="mb-2 flex justify-between items-center">
-                            <h2 className="text-lg font-semibold">Ticket Overview</h2>
-                            <span className="text-xs text-gray-500">Updated 5m ago</span>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
-                            <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 p-3">
-                                <div className="text-xs text-gray-500 dark:text-gray-400">Total</div>
-                                <div className="text-2xl font-bold">{ticketData.total}</div>
-                            </div>
-                            <div className="rounded-lg bg-yellow-50 dark:bg-yellow-900/20 p-3">
-                                <div className="text-xs text-gray-500 dark:text-gray-400">Open</div>
-                                <div className="text-2xl font-bold">{ticketData.open}</div>
-                            </div>
-                            <div className="rounded-lg bg-purple-50 dark:bg-purple-900/20 p-3">
-                                <div className="text-xs text-gray-500 dark:text-gray-400">Pending</div>
-                                <div className="text-2xl font-bold">{ticketData.pending}</div>
-                            </div>
-                            <div className="rounded-lg bg-green-50 dark:bg-green-900/20 p-3">
-                                <div className="text-xs text-gray-500 dark:text-gray-400">Resolved</div>
-                                <div className="text-2xl font-bold">{ticketData.resolved}</div>
-                            </div>
-                        </div>
-                        <div className="mt-4">
-                            <p className="text-xs text-gray-500 mb-2">By Priority:</p>
-                            <div className="flex items-center gap-1">
-                                <div className="h-2 bg-red-500 rounded" style={{ width: `${(ticketData.byPriority.high/ticketData.open)*100}%` }}></div>
-                                <div className="h-2 bg-yellow-500 rounded" style={{ width: `${(ticketData.byPriority.medium/ticketData.open)*100}%` }}></div>
-                                <div className="h-2 bg-blue-500 rounded" style={{ width: `${(ticketData.byPriority.low/ticketData.open)*100}%` }}></div>
-                            </div>
-                            <div className="flex text-xs mt-1 justify-between">
-                                <span>High: {ticketData.byPriority.high}</span>
-                                <span>Medium: {ticketData.byPriority.medium}</span>
-                                <span>Low: {ticketData.byPriority.low}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Time-based Reports Card */}
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 shadow-sm">
-                        <div className="mb-2 flex justify-between items-center">
-                            <h2 className="text-lg font-semibold">Response Time Metrics</h2>
-                            <span className="text-xs text-gray-500">Today</span>
-                        </div>
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm">First Response Time</span>
-                                <span className="font-semibold text-blue-600 dark:text-blue-400">{timeMetrics.firstResponse}</span>
-                            </div>
-                            <div className="h-1 w-full bg-gray-100 dark:bg-gray-700 rounded">
-                                <div className="h-1 bg-blue-500 rounded" style={{ width: '70%' }}></div>
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm">Avg Response Time</span>
-                                <span className="font-semibold text-blue-600 dark:text-blue-400">{timeMetrics.avgResponse}</span>
-                            </div>
-                            <div className="h-1 w-full bg-gray-100 dark:bg-gray-700 rounded">
-                                <div className="h-1 bg-blue-500 rounded" style={{ width: '65%' }}></div>
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm">Avg Resolution Time</span>
-                                <span className="font-semibold text-blue-600 dark:text-blue-400">{timeMetrics.avgResolution}</span>
-                            </div>
-                            <div className="h-1 w-full bg-gray-100 dark:bg-gray-700 rounded">
-                                <div className="h-1 bg-blue-500 rounded" style={{ width: '80%' }}></div>
-                            </div>
-                            
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm">Ticket Lifecycle</span>
-                                <span className="font-semibold text-blue-600 dark:text-blue-400">{timeMetrics.ticketLifecycle}</span>
-                            </div>
-                            <div className="h-1 w-full bg-gray-100 dark:bg-gray-700 rounded">
-                                <div className="h-1 bg-blue-500 rounded" style={{ width: '55%' }}></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Channel Distribution Card */}
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 shadow-sm">
-                        <div className="mb-2 flex justify-between items-center">
-                            <h2 className="text-lg font-semibold">Channel Distribution</h2>
-                            <span className="text-xs text-gray-500">This Week</span>
-                        </div>
-                        <div className="mt-2 space-y-3">
-                            <div>
-                                <div className="flex justify-between text-sm mb-1">
-                                    <span>Email</span>
-                                    <span>{channelDistribution.email}%</span>
-                                </div>
-                                <div className="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded">
-                                    <div className="h-2 bg-blue-500 rounded" style={{ width: `${channelDistribution.email}%` }}></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="flex justify-between text-sm mb-1">
-                                    <span>Live Chat</span>
-                                    <span>{channelDistribution.chat}%</span>
-                                </div>
-                                <div className="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded">
-                                    <div className="h-2 bg-green-500 rounded" style={{ width: `${channelDistribution.chat}%` }}></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="flex justify-between text-sm mb-1">
-                                    <span>Phone</span>
-                                    <span>{channelDistribution.phone}%</span>
-                                </div>
-                                <div className="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded">
-                                    <div className="h-2 bg-purple-500 rounded" style={{ width: `${channelDistribution.phone}%` }}></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="flex justify-between text-sm mb-1">
-                                    <span>Social Media</span>
-                                    <span>{channelDistribution.social}%</span>
-                                </div>
-                                <div className="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded">
-                                    <div className="h-2 bg-yellow-500 rounded" style={{ width: `${channelDistribution.social}%` }}></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
+                {/* Subtle background elements */}
+                <div className="absolute inset-0">
+                    <div className="absolute top-20 left-20 w-96 h-96 bg-gray-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+                    <div className="absolute top-40 right-20 w-96 h-96 bg-gray-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
+                    <div className="absolute -bottom-8 left-40 w-96 h-96 bg-gray-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse animation-delay-4000"></div>
                 </div>
 
-                {/* Bottom row - Agent Leaderboard with Gamification */}
-                <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 shadow-sm">
-                    <div className="mb-4 flex justify-between items-center">
-                        <h2 className="text-lg font-semibold">Agent Leaderboard</h2>
-                        <div className="flex space-x-2 text-sm">
-                            <button 
-                                className={`px-3 py-1 rounded ${activeTab === 'resolved' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400'}`}
-                                onClick={() => setActiveTab('resolved')}
-                            >
-                                Tickets Resolved
-                            </button>
-                            <button 
-                                className={`px-3 py-1 rounded ${activeTab === 'response' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400'}`}
-                                onClick={() => setActiveTab('response')}
-                            >
-                                Response Time
-                            </button>
-                            <button 
-                                className={`px-3 py-1 rounded ${activeTab === 'satisfaction' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400'}`}
-                                onClick={() => setActiveTab('satisfaction')}
-                            >
-                                Satisfaction Score
-                            </button>
+                {/* Main Content */}
+                <div className="relative z-10 container mx-auto px-6 py-8">
+                    
+                    {/* Welcome Header */}
+                    <div className="text-center mb-12">
+                        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl mb-6 shadow-xl">
+                            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                        </div>
+                        <h1 className="text-4xl font-light text-gray-900 mb-4 tracking-tight">
+                            Internal Support Dashboard
+                        </h1>
+                        <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+                            Welcome to the internal support system. Manage operations, monitor performance, and streamline workflows with elegant simplicity.
+                        </p>
+                    </div>
+
+                    {/* Time & Date Display */}
+                    <div className="mb-12">
+                        <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-gray-200 shadow-xl text-center max-w-2xl mx-auto">
+                            <div className="text-6xl font-light text-gray-900 mb-2 tracking-tight">
+                                {currentTime}
+                            </div>
+                            <div className="text-gray-600 text-lg font-light">
+                                {currentDate}
+                            </div>
                         </div>
                     </div>
-                    
-                    <div className="overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead className="bg-gray-50 dark:bg-gray-900/50">
-                                <tr>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rank</th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Agent</th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                        {activeTab === 'resolved' ? 'Tickets Resolved' : activeTab === 'response' ? 'Avg Response Time' : 'Satisfaction Score'}
-                                    </th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Achievement</th>
-                                </tr>
-                            </thead>
-                            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                                {agentPerformance
-                                    .sort((a, b) => {
-                                        if (activeTab === 'resolved') return b.resolved - a.resolved;
-                                        if (activeTab === 'response') {
-                                            // Convert to minutes for sorting
-                                            const aTime = parseInt(a.responseTime.replace('m', ''));
-                                            const bTime = parseInt(b.responseTime.replace('m', ''));
-                                            return aTime - bTime; // Lower is better
-                                        }
-                                        return b.satisfaction - a.satisfaction;
-                                    })
-                                    .map((agent, index) => (
-                                        <tr key={agent.name}>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700">
-                                                    <span className="text-sm font-medium">{index + 1}</span>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="flex items-center">
-                                                    <div className="flex-shrink-0 h-10 w-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                                                        <span className="text-lg">{agent.name.charAt(0)}</span>
-                                                    </div>
-                                                    <div className="ml-4">
-                                                        <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{agent.name}</div>
-                                                        <div className="text-xs text-gray-500 dark:text-gray-400">Support Agent</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-900 dark:text-gray-100">
-                                                    {activeTab === 'resolved' ? (
-                                                        <span>{agent.resolved} tickets</span>
-                                                    ) : activeTab === 'response' ? (
-                                                        <span>{agent.responseTime}</span>
-                                                    ) : (
-                                                        <span>{agent.satisfaction}%</span>
-                                                    )}
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                {index === 0 ? (
-                                                    <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
-                                                        🏆 Top Performer
-                                                    </span>
-                                                ) : index === 1 ? (
-                                                    <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-                                                        ⭐ Rising Star
-                                                    </span>
-                                                ) : index === 2 ? (
-                                                    <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300">
-                                                        👍 Consistent
-                                                    </span>
-                                                ) : (
-                                                    <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
-                                                        🔄 Improving
-                                                    </span>
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                            </tbody>
-                        </table>
+
+                    {/* Main Grid */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                        
+                        {/* System Status */}
+                        <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-gray-200 shadow-xl">
+                            <div className="text-center mb-6">
+                                <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-2xl mb-4">
+                                    <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-medium text-gray-900 mb-2">System Status</h3>
+                                <p className="text-gray-600 text-sm">All systems operational</p>
+                            </div>
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-gray-700">Database</span>
+                                    <div className="flex items-center space-x-2">
+                                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span className="text-sm text-gray-600">Online</span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-gray-700">API Services</span>
+                                    <div className="flex items-center space-x-2">
+                                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span className="text-sm text-gray-600">Active</span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-gray-700">File Storage</span>
+                                    <div className="flex items-center space-x-2">
+                                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span className="text-sm text-gray-600">Ready</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Quick Access */}
+                        <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-gray-200 shadow-xl">
+                            <div className="text-center mb-6">
+                                <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-2xl mb-4">
+                                    <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-medium text-gray-900 mb-2">Quick Actions</h3>
+                                <p className="text-gray-600 text-sm">Essential operations</p>
+                            </div>
+                            <div className="space-y-3">
+                                <button className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all duration-200 transform hover:scale-[1.02]">
+                                    <div className="font-medium text-gray-900">Process Documents</div>
+                                    <div className="text-sm text-gray-600">Manage and process files</div>
+                                </button>
+                                <button className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all duration-200 transform hover:scale-[1.02]">
+                                    <div className="font-medium text-gray-900">User Management</div>
+                                    <div className="text-sm text-gray-600">Manage system access</div>
+                                </button>
+                                <button className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all duration-200 transform hover:scale-[1.02]">
+                                    <div className="font-medium text-gray-900">System Reports</div>
+                                    <div className="text-sm text-gray-600">Generate analytics</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Recent Activity */}
+                        <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-gray-200 shadow-xl">
+                            <div className="text-center mb-6">
+                                <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-2xl mb-4">
+                                    <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-medium text-gray-900 mb-2">Activity Feed</h3>
+                                <p className="text-gray-600 text-sm">Recent system events</p>
+                            </div>
+                            <div className="space-y-4">
+                                <div className="flex items-start space-x-3">
+                                    <div className="w-2 h-2 bg-gray-400 rounded-full mt-2"></div>
+                                    <div>
+                                        <div className="text-sm text-gray-900">System backup completed</div>
+                                        <div className="text-xs text-gray-500">2 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div className="flex items-start space-x-3">
+                                    <div className="w-2 h-2 bg-gray-400 rounded-full mt-2"></div>
+                                    <div>
+                                        <div className="text-sm text-gray-900">Database optimization finished</div>
+                                        <div className="text-xs text-gray-500">15 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div className="flex items-start space-x-3">
+                                    <div className="w-2 h-2 bg-gray-400 rounded-full mt-2"></div>
+                                    <div>
+                                        <div className="text-sm text-gray-900">Security scan completed</div>
+                                        <div className="text-xs text-gray-500">1 hour ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Info Panel */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        
+                        {/* Performance Overview */}
+                        <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-gray-200 shadow-xl">
+                            <div className="text-center mb-8">
+                                <h3 className="text-2xl font-medium text-gray-900 mb-2">Performance</h3>
+                                <p className="text-gray-600">System efficiency metrics</p>
+                            </div>
+                            <div className="space-y-6">
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <span className="text-gray-700">CPU Usage</span>
+                                        <span className="text-gray-600">23%</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 rounded-full h-2">
+                                        <div className="bg-gray-600 h-2 rounded-full" style={{ width: '23%' }}></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <span className="text-gray-700">Memory</span>
+                                        <span className="text-gray-600">45%</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 rounded-full h-2">
+                                        <div className="bg-gray-600 h-2 rounded-full" style={{ width: '45%' }}></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <span className="text-gray-700">Storage</span>
+                                        <span className="text-gray-600">67%</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 rounded-full h-2">
+                                        <div className="bg-gray-600 h-2 rounded-full" style={{ width: '67%' }}></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* System Information */}
+                        <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-gray-200 shadow-xl">
+                            <div className="text-center mb-8">
+                                <h3 className="text-2xl font-medium text-gray-900 mb-2">System Info</h3>
+                                <p className="text-gray-600">Environment details</p>
+                            </div>
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                                    <span className="text-gray-700">Version</span>
+                                    <span className="text-gray-900 font-medium">2.1.4</span>
+                                </div>
+                                <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                                    <span className="text-gray-700">Environment</span>
+                                    <span className="text-gray-900 font-medium">Production</span>
+                                </div>
+                                <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                                    <span className="text-gray-700">Last Update</span>
+                                    <span className="text-gray-900 font-medium">Today</span>
+                                </div>
+                                <div className="flex justify-between items-center py-3">
+                                    <span className="text-gray-700">Uptime</span>
+                                    <span className="text-gray-900 font-medium">99.9%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Footer Message */}
+                    <div className="text-center mt-16">
+                        <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 shadow-lg max-w-4xl mx-auto">
+                            <p className="text-gray-600 text-lg leading-relaxed">
+                                Designed for efficiency. Built for reliability. Crafted for professionals who value simplicity and performance.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                    .animation-delay-2000 {
+                        animation-delay: 2s;
+                    }
+                    .animation-delay-4000 {
+                        animation-delay: 4s;
+                    }
+                `
+            }} />
         </AppLayout>
     );
 }
